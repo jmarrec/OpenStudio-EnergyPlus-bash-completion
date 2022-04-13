@@ -21,11 +21,13 @@
 
 
 # I've decided to hardcode the list of commands instead of calling the CLI, it's making it too slow
+# os_commands=$(openstudio list_commands --quiet)
 declare os_commands
 os_commands=$'\n'"run"$'\n'"gem_list"$'\n'"measure"$'\n'"update"$'\n'"execute_ruby_script"$'\n'"openstudio_version"$'\n'"energyplus_version"$'\n'"ruby_version"$'\n'"list_commands"
 cmds="-h
 --help
 --verbose
+--version
 -i
 --include
 -e
@@ -293,7 +295,7 @@ _openstudio()
     #opts="-h -i -e --help --verbose --include --execute --gem_path --gem_home"
     #cmds="energyplus_version execute_ruby_script gem_list list_commands measure openstudio_version ruby_version run update"
 
-    #case "${prev}" in 
+    #case "${prev}" in
         #"measure")                    _openstudio_measure ;;
         #"run")                        _openstudio_run ;;
         #"update")                     _openstudio_update ;;

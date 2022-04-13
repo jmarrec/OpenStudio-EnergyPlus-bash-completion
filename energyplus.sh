@@ -60,7 +60,7 @@ __epcomp() {
   done
 
   IFS="$sep"
-  COMPREPLY=( $(compgen -W "$list" -- "$cur") $( compgen -f -X '!*.idf' -- $cur ) $( compgen -f -X '!*.json' -- $cur ) )
+  COMPREPLY=( $(compgen -W "$list" -- "$cur") $( compgen -f -X '!*.idf' -- $cur ) $( compgen -f -X '!*.epJSON' -- $cur ) $( compgen -o plusdirs -f -X '!*.imf' -- $cur ) )
 }
 
 # Complete with a directory, suffix a "/"
@@ -201,8 +201,8 @@ _energyplus()
             -d                 )    _comp_dir;;
             --output-directory )    _comp_dir;;
 
-            -i                 )    COMPREPLY=( $( compgen -f -X '!*.idd' -- $cur ) );;
-            --idd              )    COMPREPLY=( $( compgen -f -X '!*.idd' -- $cur ) );;
+            -i                 )    COMPREPLY=( $( compgen -o plusdirs -f -X '!*.idd' -- $cur ) );;
+            --idd              )    COMPREPLY=( $( compgen -o plusdirs -f -X '!*.idd' -- $cur ) );;
 
             -p                 )    COMPREPLY=( eplus );;
             --output-prefix    )    COMPREPLY=( eplus );;
@@ -214,10 +214,10 @@ _energyplus()
             --jobs             )    COMPREPLY=( $(nproc) );;
 
             # Complete files with .json in there
-            -w                 )    COMPREPLY=( $( compgen -f -X '!*.epw' -- $cur ) );;
-            --weather          )    COMPREPLY=( $( compgen -f -X '!*.epw' -- $cur ) );;
+            -w                 )    COMPREPLY=( $( compgen -o plusdirs -f -X '!*.epw' -- $cur ) );;
+            --weather          )    COMPREPLY=( $( compgen -o plusdirs -f -X '!*.epw' -- $cur ) );;
 
-            *                  )    COMPREPLY=( $( compgen -f -X '!*.idf' -- $cur ) $( compgen -f -X '!*.json' -- $cur ) );;
+            *                  )    COMPREPLY=( $( compgen -f -X '!*.idf' -- $cur ) $( compgen -o plusdirs -f -X '!*.epJSON' -- $cur ) $( compgen -o plusdirs -f -X '!*.imf' -- $cur ) );;
         esac
         ;;
 

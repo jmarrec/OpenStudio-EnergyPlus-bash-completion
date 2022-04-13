@@ -18,32 +18,6 @@
      #run                   Executes an OpenStudio Workflow file
      #update                Updates OpenStudio Models to the current version
 
-
-
-# I've decided to hardcode the list of commands instead of calling the CLI, it's making it too slow
-# os_commands=$(openstudio list_commands --quiet)
-declare os_commands
-os_commands=$'\n'"run"$'\n'"gem_list"$'\n'"measure"$'\n'"update"$'\n'"execute_ruby_script"$'\n'"openstudio_version"$'\n'"energyplus_version"$'\n'"ruby_version"$'\n'"list_commands"
-cmds="-h
---help
---verbose
---version
--i
---include
--e
---execute
---gem_path
---gem_home
-run
-gem_list
-measure
-update
-execute_ruby_script
-openstudio_version
-energyplus_version
-ruby_version
-list_commands"
-
 # suppress trailing whitespace
 __trailing_nospace() {
     # compopt is not available in ancient bash versions (like mac)
@@ -207,6 +181,25 @@ _openstudio()
         #echo "Word: $w"
     #done
 
+    local cmds="-h
+    --help
+    --verbose
+    --version
+    -i
+    --include
+    -e
+    --execute
+    --gem_path
+    --gem_home
+    run
+    gem_list
+    measure
+    update
+    execute_ruby_script
+    openstudio_version
+    energyplus_version
+    ruby_version
+    list_commands"
 
     # Get the total openstudio command list
     # Use the built-in function to return the list of possible commands (ensures this will still work when the cli is updated)
@@ -217,6 +210,17 @@ _openstudio()
     #   local cmds=$'\n'"$(ruby /Users/julien/Software/Others/OpenStudio/openstudiocore/src/cli/openstudio_cli.rb list_commands --quiet)"
     # populates a global os_commands variable which is a list of \n seperated commands (not --xxx) such as measure, run, etc
     #   __os_commands "$cmds"
+        # I've decided to hardcode the list of commands instead of calling the CLI, it's making it too slow
+    # os_commands=$(openstudio list_commands --quiet)
+    local os_commands="run
+    gem_list
+    measure
+    update
+    execute_ruby_script
+    openstudio_version
+    energyplus_version
+    ruby_version
+    list_commands"
 
     # test if it's in os_commands
     is_os_command=0

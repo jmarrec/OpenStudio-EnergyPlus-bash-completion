@@ -61,16 +61,16 @@ __oscomp() {
   # and turn it into a newline separated list of words
   local list s sep=$'\n' IFS=$' '$'\t'$'\n'
   local cur="${COMP_WORDS[COMP_CWORD]}"
-
   for s in $1
   do
     # Skip the words that were already passed
     __oscomp_words_include "$s" && continue
     list="$list$s$sep"
   done
-
   IFS="$sep"
   COMPREPLY=($(compgen -W "$list" -- "$cur"))
+  COMPREPLY_FILES=($( compgen -f -X '!*.rb' -- $cur ))
+  COMPREPLY+=( "${COMPREPLY_FILES[@]}" )
 }
 
 # if the last true command is "measure"
@@ -316,4 +316,4 @@ _openstudio()
             #;;
     #esac
 }
-complete -F _openstudio openstudio
+complete  -o nosort -F _openstudio openstudio

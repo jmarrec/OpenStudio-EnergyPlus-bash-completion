@@ -199,7 +199,8 @@ _openstudio()
     openstudio_version
     energyplus_version
     ruby_version
-    list_commands"
+    list_commands
+    labs"
 
     # Get the total openstudio command list
     # Use the built-in function to return the list of possible commands (ensures this will still work when the cli is updated)
